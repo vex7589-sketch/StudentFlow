@@ -16,11 +16,17 @@
 
     <h2>📚 Mis tareas</h2>
 
-    <ul>
-        <li>Matemáticas - Pendiente</li>
-        <li>Historia - En progreso</li>
-        <li>Inglés - Completada ✅</li>
-    </ul>
+   <ul>
+    <li>Matemáticas - Pendiente <button onclick="completarTarea(this)">Completar</button></li>
+    <li>Historia - En progreso <button onclick="completarTarea(this)">Completar</button></li>
+    <li>Inglés - Completada ✅</li>
+</ul>
+
+<script>
+function completarTarea(boton) {
+    boton.parentElement.innerHTML = "Tarea completada ✅";
+}
+</script>
 
     <h2>📅 Mi día</h2>
 
