@@ -4,44 +4,438 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StudentFlow</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #202938;
+        }
+
+        header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0 0 8px;
+            font-size: 32px;
+        }
+
+        header p {
+            margin: 0;
+        }
+
+        .contenedor {
+            max-width: 1000px;
+            margin: 25px auto;
+            padding: 0 20px;
+        }
+
+        .resumen {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .tarjeta {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .tarjeta h2 {
+            margin-top: 0;
+        }
+
+        .numero {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4f46e5;
+        }
+
+        .progreso {
+            background: #e5e7eb;
+            height: 12px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .barra {
+            background: #22c55e;
+            height: 100%;
+            width: 0%;
+            transition: 0.3s;
+        }
+
+        .tarea {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            margin: 8px 0;
+            background: #f8fafc;
+            border-radius: 10px;
+        }
+
+        .completada {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        button {
+            border: none;
+            border-radius: 8px;
+            padding: 9px 13px;
+            cursor: pointer;
+            background: #4f46e5;
+            color: white;
+            font-weight: bold;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+
+        .boton-verde {
+            background: #22c55e;
+        }
+
+        .boton-rojo {
+            background: #ef4444;
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            margin-right: 5px;
+        }
+
+        .formulario {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .temporizador {
+            text-align: center;
+        }
+
+        #tiempo {
+            font-size: 45px;
+            font-weight: bold;
+            color: #4f46e5;
+            margin: 15px 0;
+        }
+
+        .acciones {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .mensaje {
+            margin-top: 12px;
+            font-weight: bold;
+            color: #16a34a;
+        }
+
+        @media (max-width: 700px) {
+            .resumen {
+                grid-template-columns: 1fr;
+            }
+
+            .tarea {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
+<header>
     <h1>🎓 StudentFlow</h1>
+    <p>Organiza tus estudios, tu tiempo y tu dinero.</p>
+</header>
 
-    <p>Tu espacio para organizar tus estudios, tiempo y dinero.</p>
+<div class="contenedor">
 
-    <hr>
+    <div class="resumen">
 
-    <h2>📚 Mis tareas</h2>
+        <div class="tarjeta">
+            <h2>📚 Tareas</h2>
+            <div class="numero" id="contador">0 / 3</div>
+            <div class="progreso">
+                <div class="barra" id="barra"></div>
+            </div>
+        </div>
 
-   <ul>
-    <li>Matemáticas - Pendiente <button onclick="completarTarea(this)">Completar</button></li>
-    <li>Historia - En progreso <button onclick="completarTarea(this)">Completar</button></li>
-    <li>Inglés - Completada ✅</li>
-</ul>
+        <div class="tarjeta">
+            <h2>⏱️ Estudio</h2>
+            <div class="numero" id="tiempo">25:00</div>
+
+            <div class="acciones">
+                <button onclick="iniciarTemporizador()">▶ Iniciar</button>
+                <button onclick="pausarTemporizador()">⏸ Pausar</button>
+                <button onclick="reiniciarTemporizador()">↻ Reiniciar</button>
+            </div>
+        </div>
+
+        <div class="tarjeta">
+            <h2>💰 Dinero</h2>
+            <div class="numero">$<span id="dinero">50.00</span></div>
+
+            <div class="formulario">
+                <input type="number" id="gasto" placeholder="Gasto $" min="0">
+                <button onclick="registrarGasto()">Registrar</button>
+            </div>
+
+            <div class="mensaje" id="mensaje"></div>
+        </div>
+
+    </div>
+
+    <div class="tarjeta">
+        <h2>📝 Mis tareas</h2>
+
+        <div id="listaTareas">
+
+            <div class="tarea">
+                <span>Matemáticas</span>
+                <button class="boton-verde" onclick="completarTarea(this)">
+                    Completar
+                </button>
+            </div>
+
+            <div class="tarea">
+                <span>Historia</span>
+                <button class="boton-verde" onclick="completarTarea(this)">
+                    Completar
+                </button>
+            </div>
+
+            <div class="tarea">
+                <span>Inglés</span>
+                <button class="boton-verde" onclick="completarTarea(this)">
+                    Completar
+                </button>
+            </div>
+
+        </div>
+
+        <div class="formulario">
+            <input type="text" id="nuevaTarea" placeholder="Nueva tarea">
+            <button onclick="agregarTarea()">+ Agregar tarea</button>
+        </div>
+
+        <p id="mensajeTarea"></p>
+    </div>
+
+    <br>
+
+    <div class="tarjeta">
+        <h2>📅 Mi día</h2>
+
+        <p>🏫 <strong>08:00 - 13:00</strong> → Clases</p>
+        <p>📚 <strong>14:00 - 15:00</strong> → Estudiar</p>
+        <p>🎮 <strong>16:00 - 18:00</strong> → Tiempo libre</p>
+    </div>
+
+</div>
 
 <script>
-function completarTarea(boton) {
-    boton.parentElement.innerHTML = "Tarea completada ✅";
-}
+
+    let tareasCompletadas = 0;
+    let totalTareas = 3;
+
+    function actualizarProgreso() {
+
+        document.getElementById("contador").textContent =
+            tareasCompletadas + " / " + totalTareas;
+
+        let porcentaje =
+            (tareasCompletadas / totalTareas) * 100;
+
+        document.getElementById("barra").style.width =
+            porcentaje + "%";
+    }
+
+    function completarTarea(boton) {
+
+        let tarea = boton.parentElement;
+
+        if (!tarea.classList.contains("completada")) {
+
+            tarea.classList.add("completada");
+
+            boton.textContent = "✅ Completada";
+
+            boton.disabled = true;
+
+            tareasCompletadas++;
+
+            actualizarProgreso();
+        }
+    }
+
+    function agregarTarea() {
+
+        let entrada = document.getElementById("nuevaTarea");
+
+        let nombre = entrada.value.trim();
+
+        if (nombre === "") {
+            document.getElementById("mensajeTarea").textContent =
+                "Escribe una tarea primero.";
+            return;
+        }
+
+        let lista = document.getElementById("listaTareas");
+
+        let nueva = document.createElement("div");
+
+        nueva.className = "tarea";
+
+        nueva.innerHTML =
+            "<span>" + nombre + "</span>" +
+            '<button class="boton-verde" onclick="completarTarea(this)">Completar</button>';
+
+        lista.appendChild(nueva);
+
+        totalTareas++;
+
+        actualizarProgreso();
+
+        entrada.value = "";
+
+        document.getElementById("mensajeTarea").textContent =
+            "Tarea agregada correctamente ✅";
+    }
+
+
+    let segundos = 25 * 60;
+
+    let temporizador = null;
+
+    function mostrarTiempo() {
+
+        let minutos = Math.floor(segundos / 60);
+
+        let segundosRestantes = segundos % 60;
+
+        let textoMinutos =
+            minutos.toString().padStart(2, "0");
+
+        let textoSegundos =
+            segundosRestantes.toString().padStart(2, "0");
+
+        document.getElementById("tiempo").textContent =
+            textoMinutos + ":" + textoSegundos;
+    }
+
+    function iniciarTemporizador() {
+
+        if (temporizador !== null) {
+            return;
+        }
+
+        temporizador = setInterval(function() {
+
+            if (segundos > 0) {
+
+                segundos--;
+
+                mostrarTiempo();
+
+            } else {
+
+                clearInterval(temporizador);
+
+                temporizador = null;
+
+                alert("🎉 ¡Terminaste tu sesión de estudio!");
+
+            }
+
+        }, 1000);
+    }
+
+    function pausarTemporizador() {
+
+        clearInterval(temporizador);
+
+        temporizador = null;
+    }
+
+    function reiniciarTemporizador() {
+
+        clearInterval(temporizador);
+
+        temporizador = null;
+
+        segundos = 25 * 60;
+
+        mostrarTiempo();
+    }
+
+
+    let dineroDisponible = 50;
+
+    function registrarGasto() {
+
+        let entrada =
+            document.getElementById("gasto");
+
+        let gasto =
+            Number(entrada.value);
+
+        if (gasto <= 0 || isNaN(gasto)) {
+
+            document.getElementById("mensaje").textContent =
+                "Ingresa un gasto válido.";
+
+            return;
+        }
+
+        if (gasto > dineroDisponible) {
+
+            document.getElementById("mensaje").textContent =
+                "No tienes suficiente dinero.";
+
+            return;
+        }
+
+        dineroDisponible -= gasto;
+
+        document.getElementById("dinero").textContent =
+            dineroDisponible.toFixed(2);
+
+        document.getElementById("mensaje").textContent =
+            "Gasto registrado correctamente ✅";
+
+        entrada.value = "";
+    }
+
+    actualizarProgreso();
+    mostrarTiempo();
+
 </script>
-
-    <h2>📅 Mi día</h2>
-
-    <p>08:00 - 13:00 → 🏫 Clases</p>
-    <p>14:00 - 15:00 → 📚 Estudiar</p>
-    <p>16:00 - 18:00 → 🎮 Tiempo libre</p>
-
-    <h2>💰 Mis finanzas</h2>
-
-    <p>Dinero disponible: $50.00</p>
-    <p>Gastos esta semana: $18.00</p>
-
-    <hr>
-
-    <p>StudentFlow - Organización estudiantil</p>
 
 </body>
 </html>
