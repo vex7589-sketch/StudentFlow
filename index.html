@@ -217,25 +217,40 @@
         <div id="listaTareas">
 
             <div class="tarea">
-                <span>Matemáticas</span>
-                <button class="boton-verde" onclick="completarTarea(this)">
-                    Completar
-                </button>
-            </div>
+    <span>Matemáticas</span>
+
+    <button class="boton-verde" onclick="completarTarea(this)">
+        Completar
+    </button>
+
+    <button class="boton-rojo" onclick="borrarTarea(this)">
+        🗑️ Borrar
+    </button>
+</div>
 
             <div class="tarea">
-                <span>Historia</span>
-                <button class="boton-verde" onclick="completarTarea(this)">
-                    Completar
-                </button>
-            </div>
+    <span>Historia</span>
+
+    <button class="boton-verde" onclick="completarTarea(this)">
+        Completar
+    </button>
+
+    <button class="boton-rojo" onclick="borrarTarea(this)">
+        🗑️ Borrar
+    </button>
+</div>
 
             <div class="tarea">
-                <span>Inglés</span>
-                <button class="boton-verde" onclick="completarTarea(this)">
-                    Completar
-                </button>
-            </div>
+    <span>Historia</span>
+
+    <button class="boton-verde" onclick="completarTarea(this)">
+        Completar
+    </button>
+
+    <button class="boton-rojo" onclick="borrarTarea(this)">
+        🗑️ Borrar
+    </button>
+</div>
 
         </div>
 
@@ -435,6 +450,182 @@
     actualizarProgreso();
     mostrarTiempo();
 
+<script>
+let tareasCompletadas = 0;
+let totalTareas = 3;
+
+function actualizarProgreso() {
+    document.getElementById("contador").textContent =
+        tareasCompletadas + " / " + totalTareas;
+
+    let porcentaje = totalTareas > 0
+        ? (tareasCompletadas / totalTareas) * 100
+        : 0;
+
+    document.getElementById("barra").style.width =
+        porcentaje + "%";
+}
+
+function completarTarea(boton) {
+    let tarea = boton.parentElement;
+
+    if (!tarea.classList.contains("completada")) {
+        tarea.classList.add("completada");
+
+        boton.textContent = "✅ Completada";
+        boton.disabled = true;
+
+        tareasCompletadas++;
+
+        actualizarProgreso();
+    }
+}
+
+function borrarTarea(boton) {
+    let tarea = boton.parentElement;
+
+    if (tarea.classList.contains("completada")) {
+        tareasCompletadas--;
+    }
+
+    totalTareas--;
+
+    tarea.remove();
+
+    actualizarProgreso();
+}
+
+function agregarTarea() {
+    let entrada = document.getElementById("nuevaTarea");
+    let nombre = entrada.value.trim();
+
+    if (nombre === "") {
+        document.getElementById("mensajeTarea").textContent =
+            "Escribe una tarea primero.";
+        return;
+    }
+
+    let lista = document.getElementById("listaTareas");
+
+    let nueva = document.createElement("div");
+    nueva.className = "tarea";
+
+    let texto = document.createElement("span");
+    texto.textContent = nombre;
+
+    let botonCompletar = document.createElement("button");
+    botonCompletar.className = "boton-verde";
+    botonCompletar.textContent = "Completar";
+    botonCompletar.onclick = function() {
+        completarTarea(botonCompletar);
+    };
+
+    let botonBorrar = document.createElement("button");
+    botonBorrar.className = "boton-rojo";
+    botonBorrar.textContent = "🗑️ Borrar";
+    botonBorrar.onclick = function() {
+        borrarTarea(botonBorrar);
+    };
+
+    nueva.appendChild(texto);
+    nueva.appendChild(botonCompletar);
+    nueva.appendChild(botonBorrar);
+
+    lista.appendChild(nueva);
+
+    totalTareas++;
+
+    actualizarProgreso();
+
+    entrada.value = "";
+
+    document.getElementById("mensajeTarea").textContent =
+        "Tarea agregada correctamente ✅";
+}
+
+let segundos = 25 * 60;
+let temporizador = null;
+
+function mostrarTiempo() {
+    let minutos = Math.floor(segundos / 60);
+    let segundosRestantes = segundos % 60;
+
+    let textoMinutos =
+        minutos.toString().padStart(2, "0");
+
+    let textoSegundos =
+        segundosRestantes.toString().padStart(2, "0");
+
+    document.getElementById("tiempo").textContent =
+        textoMinutos + ":" + textoSegundos;
+}
+
+function iniciarTemporizador() {
+    if (temporizador !== null) {
+        return;
+    }
+
+    temporizador = setInterval(function() {
+        if (segundos > 0) {
+            segundos--;
+            mostrarTiempo();
+        } else {
+            clearInterval(temporizador);
+            temporizador = null;
+
+            alert("🎉 ¡Terminaste tu sesión de estudio!");
+        }
+    }, 1000);
+}
+
+function pausarTemporizador() {
+    clearInterval(temporizador);
+    temporizador = null;
+}
+
+function reiniciarTemporizador() {
+    clearInterval(temporizador);
+    temporizador = null;
+
+    segundos = 25 * 60;
+
+    mostrarTiempo();
+}
+
+let dineroDisponible = 50;
+
+function registrarGasto() {
+    let entrada =
+        document.getElementById("gasto");
+
+    let gasto =
+        Number(entrada.value);
+
+    if (gasto <= 0 || isNaN(gasto)) {
+        document.getElementById("mensaje").textContent =
+            "Ingresa un gasto válido.";
+        return;
+    }
+
+    if (gasto > dineroDisponible) {
+        document.getElementById("mensaje").textContent =
+            "No tienes suficiente dinero.";
+        return;
+    }
+
+    dineroDisponible -= gasto;
+
+    document.getElementById("dinero").textContent =
+        dineroDisponible.toFixed(2);
+
+    document.getElementById("mensaje").textContent =
+        "Gasto registrado correctamente ✅";
+
+    entrada.value = "";
+}
+
+actualizarProgreso();
+mostrarTiempo();
 </script>
 
 </body>
