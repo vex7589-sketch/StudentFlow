@@ -108,6 +108,11 @@
             opacity: 0.85;
         }
 
+        button:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
         .boton-verde {
             background: #22c55e;
         }
@@ -154,6 +159,10 @@
             color: #16a34a;
         }
 
+        #mensajeTarea {
+            font-weight: bold;
+        }
+
         @media (max-width: 700px) {
             .resumen {
                 grid-template-columns: 1fr;
@@ -178,32 +187,63 @@
 
     <div class="resumen">
 
+        <!-- TAREAS -->
         <div class="tarjeta">
             <h2>📚 Tareas</h2>
-            <div class="numero" id="contador">0 / 3</div>
+
+            <div class="numero" id="contador">
+                0 / 3
+            </div>
+
             <div class="progreso">
                 <div class="barra" id="barra"></div>
             </div>
         </div>
 
+
+        <!-- TEMPORIZADOR -->
         <div class="tarjeta">
             <h2>⏱️ Estudio</h2>
-            <div class="numero" id="tiempo">25:00</div>
+
+            <div class="numero" id="tiempo">
+                25:00
+            </div>
 
             <div class="acciones">
-                <button onclick="iniciarTemporizador()">▶ Iniciar</button>
-                <button onclick="pausarTemporizador()">⏸ Pausar</button>
-                <button onclick="reiniciarTemporizador()">↻ Reiniciar</button>
+                <button onclick="iniciarTemporizador()">
+                    ▶ Iniciar
+                </button>
+
+                <button onclick="pausarTemporizador()">
+                    ⏸ Pausar
+                </button>
+
+                <button onclick="reiniciarTemporizador()">
+                    ↻ Reiniciar
+                </button>
             </div>
         </div>
 
+
+        <!-- DINERO -->
         <div class="tarjeta">
             <h2>💰 Dinero</h2>
-            <div class="numero">$<span id="dinero">50.00</span></div>
+
+            <div class="numero">
+                $<span id="dinero">50.00</span>
+            </div>
 
             <div class="formulario">
-                <input type="number" id="gasto" placeholder="Gasto $" min="0">
-                <button onclick="registrarGasto()">Registrar</button>
+                <input
+                    type="number"
+                    id="gasto"
+                    placeholder="Gasto $"
+                    min="0"
+                >
+
+                <button onclick="registrarGasto()">
+                    Registrar
+                </button>
             </div>
 
             <div class="mensaje" id="mensaje"></div>
@@ -211,89 +251,156 @@
 
     </div>
 
+
+    <!-- LISTA DE TAREAS -->
     <div class="tarjeta">
+
         <h2>📝 Mis tareas</h2>
 
         <div id="listaTareas">
 
             <div class="tarea">
-    <span>Matemáticas</span>
+                <span>Matemáticas</span>
 
-    <button class="boton-verde" onclick="completarTarea(this)">
-        Completar
-    </button>
+                <button
+                    class="boton-verde"
+                    onclick="completarTarea(this)"
+                >
+                    Completar
+                </button>
 
-    <button class="boton-rojo" onclick="borrarTarea(this)">
-        🗑️ Borrar
-    </button>
-</div>
+                <button
+                    class="boton-rojo"
+                    onclick="borrarTarea(this)"
+                >
+                    🗑️ Borrar
+                </button>
+            </div>
 
-            <div class="tarea">
-    <span>Historia</span>
-
-    <button class="boton-verde" onclick="completarTarea(this)">
-        Completar
-    </button>
-
-    <button class="boton-rojo" onclick="borrarTarea(this)">
-        🗑️ Borrar
-    </button>
-</div>
 
             <div class="tarea">
-    <span>Historia</span>
+                <span>Historia</span>
 
-    <button class="boton-verde" onclick="completarTarea(this)">
-        Completar
-    </button>
+                <button
+                    class="boton-verde"
+                    onclick="completarTarea(this)"
+                >
+                    Completar
+                </button>
 
-    <button class="boton-rojo" onclick="borrarTarea(this)">
-        🗑️ Borrar
-    </button>
-</div>
+                <button
+                    class="boton-rojo"
+                    onclick="borrarTarea(this)"
+                >
+                    🗑️ Borrar
+                </button>
+            </div>
+
+
+            <div class="tarea">
+                <span>Inglés</span>
+
+                <button
+                    class="boton-verde"
+                    onclick="completarTarea(this)"
+                >
+                    Completar
+                </button>
+
+                <button
+                    class="boton-rojo"
+                    onclick="borrarTarea(this)"
+                >
+                    🗑️ Borrar
+                </button>
+            </div>
 
         </div>
 
+
+        <!-- AGREGAR TAREA -->
         <div class="formulario">
-            <input type="text" id="nuevaTarea" placeholder="Nueva tarea">
-            <button onclick="agregarTarea()">+ Agregar tarea</button>
+
+            <input
+                type="text"
+                id="nuevaTarea"
+                placeholder="Nueva tarea"
+            >
+
+            <button onclick="agregarTarea()">
+                + Agregar tarea
+            </button>
+
         </div>
 
         <p id="mensajeTarea"></p>
+
     </div>
+
 
     <br>
 
+
+    <!-- MI DÍA -->
     <div class="tarjeta">
+
         <h2>📅 Mi día</h2>
 
-        <p>🏫 <strong>08:00 - 13:00</strong> → Clases</p>
-        <p>📚 <strong>14:00 - 15:00</strong> → Estudiar</p>
-        <p>🎮 <strong>16:00 - 18:00</strong> → Tiempo libre</p>
+        <p>
+            🏫 <strong>08:00 - 13:00</strong>
+            → Clases
+        </p>
+
+        <p>
+            📚 <strong>14:00 - 15:00</strong>
+            → Estudiar
+        </p>
+
+        <p>
+            🎮 <strong>16:00 - 18:00</strong>
+            → Tiempo libre
+        </p>
+
     </div>
 
 </div>
 
+
 <script>
 
+    /* =========================
+       TAREAS
+    ========================= */
+
     let tareasCompletadas = 0;
+
     let totalTareas = 3;
+
 
     function actualizarProgreso() {
 
         document.getElementById("contador").textContent =
             tareasCompletadas + " / " + totalTareas;
 
-        let porcentaje =
-            (tareasCompletadas / totalTareas) * 100;
+
+        let porcentaje = 0;
+
+        if (totalTareas > 0) {
+
+            porcentaje =
+                (tareasCompletadas / totalTareas) * 100;
+        }
+
 
         document.getElementById("barra").style.width =
             porcentaje + "%";
     }
 
+
     function completarTarea(boton) {
 
         let tarea = boton.parentElement;
+
 
         if (!tarea.classList.contains("completada")) {
 
@@ -309,87 +416,183 @@
         }
     }
 
+
+    function borrarTarea(boton) {
+
+        let tarea = boton.parentElement;
+
+
+        if (tarea.classList.contains("completada")) {
+
+            tareasCompletadas--;
+        }
+
+
+        totalTareas--;
+
+        tarea.remove();
+
+        actualizarProgreso();
+    }
+
+
     function agregarTarea() {
 
-        let entrada = document.getElementById("nuevaTarea");
+        let entrada =
+            document.getElementById("nuevaTarea");
 
-        let nombre = entrada.value.trim();
+
+        let nombre =
+            entrada.value.trim();
+
 
         if (nombre === "") {
+
             document.getElementById("mensajeTarea").textContent =
                 "Escribe una tarea primero.";
+
             return;
         }
 
-        let lista = document.getElementById("listaTareas");
 
-        let nueva = document.createElement("div");
+        let lista =
+            document.getElementById("listaTareas");
+
+
+        let nueva =
+            document.createElement("div");
 
         nueva.className = "tarea";
 
-        nueva.innerHTML =
-            "<span>" + nombre + "</span>" +
-            '<button class="boton-verde" onclick="completarTarea(this)">Completar</button>';
+
+        let texto =
+            document.createElement("span");
+
+        texto.textContent = nombre;
+
+
+        let botonCompletar =
+            document.createElement("button");
+
+        botonCompletar.className =
+            "boton-verde";
+
+        botonCompletar.textContent =
+            "Completar";
+
+
+        botonCompletar.onclick =
+            function() {
+
+                completarTarea(botonCompletar);
+            };
+
+
+        let botonBorrar =
+            document.createElement("button");
+
+        botonBorrar.className =
+            "boton-rojo";
+
+        botonBorrar.textContent =
+            "🗑️ Borrar";
+
+
+        botonBorrar.onclick =
+            function() {
+
+                borrarTarea(botonBorrar);
+            };
+
+
+        nueva.appendChild(texto);
+
+        nueva.appendChild(botonCompletar);
+
+        nueva.appendChild(botonBorrar);
+
 
         lista.appendChild(nueva);
 
+
         totalTareas++;
+
 
         actualizarProgreso();
 
+
         entrada.value = "";
+
 
         document.getElementById("mensajeTarea").textContent =
             "Tarea agregada correctamente ✅";
     }
 
 
+
+    /* =========================
+       TEMPORIZADOR
+    ========================= */
+
     let segundos = 25 * 60;
 
     let temporizador = null;
 
+
     function mostrarTiempo() {
 
-        let minutos = Math.floor(segundos / 60);
+        let minutos =
+            Math.floor(segundos / 60);
 
-        let segundosRestantes = segundos % 60;
+
+        let segundosRestantes =
+            segundos % 60;
+
 
         let textoMinutos =
             minutos.toString().padStart(2, "0");
 
+
         let textoSegundos =
             segundosRestantes.toString().padStart(2, "0");
+
 
         document.getElementById("tiempo").textContent =
             textoMinutos + ":" + textoSegundos;
     }
 
+
     function iniciarTemporizador() {
 
         if (temporizador !== null) {
+
             return;
         }
 
-        temporizador = setInterval(function() {
 
-            if (segundos > 0) {
+        temporizador =
+            setInterval(function() {
 
-                segundos--;
+                if (segundos > 0) {
 
-                mostrarTiempo();
+                    segundos--;
 
-            } else {
+                    mostrarTiempo();
 
-                clearInterval(temporizador);
+                } else {
 
-                temporizador = null;
+                    clearInterval(temporizador);
 
-                alert("🎉 ¡Terminaste tu sesión de estudio!");
+                    temporizador = null;
 
-            }
+                    alert(
+                        "🎉 ¡Terminaste tu sesión de estudio!"
+                    );
+                }
 
-        }, 1000);
+            }, 1000);
     }
+
 
     function pausarTemporizador() {
 
@@ -397,6 +600,7 @@
 
         temporizador = null;
     }
+
 
     function reiniciarTemporizador() {
 
@@ -410,15 +614,23 @@
     }
 
 
+
+    /* =========================
+       DINERO
+    ========================= */
+
     let dineroDisponible = 50;
+
 
     function registrarGasto() {
 
         let entrada =
             document.getElementById("gasto");
 
+
         let gasto =
             Number(entrada.value);
+
 
         if (gasto <= 0 || isNaN(gasto)) {
 
@@ -428,6 +640,7 @@
             return;
         }
 
+
         if (gasto > dineroDisponible) {
 
             document.getElementById("mensaje").textContent =
@@ -436,196 +649,31 @@
             return;
         }
 
+
         dineroDisponible -= gasto;
+
 
         document.getElementById("dinero").textContent =
             dineroDisponible.toFixed(2);
 
+
         document.getElementById("mensaje").textContent =
             "Gasto registrado correctamente ✅";
+
 
         entrada.value = "";
     }
 
+
+
+    /* =========================
+       INICIO
+    ========================= */
+
     actualizarProgreso();
+
     mostrarTiempo();
 
-<script>
-let tareasCompletadas = 0;
-let totalTareas = 3;
-
-function actualizarProgreso() {
-    document.getElementById("contador").textContent =
-        tareasCompletadas + " / " + totalTareas;
-
-    let porcentaje = totalTareas > 0
-        ? (tareasCompletadas / totalTareas) * 100
-        : 0;
-
-    document.getElementById("barra").style.width =
-        porcentaje + "%";
-}
-
-function completarTarea(boton) {
-    let tarea = boton.parentElement;
-
-    if (!tarea.classList.contains("completada")) {
-        tarea.classList.add("completada");
-
-        boton.textContent = "✅ Completada";
-        boton.disabled = true;
-
-        tareasCompletadas++;
-
-        actualizarProgreso();
-    }
-}
-
-function borrarTarea(boton) {
-    let tarea = boton.parentElement;
-
-    if (tarea.classList.contains("completada")) {
-        tareasCompletadas--;
-    }
-
-    totalTareas--;
-
-    tarea.remove();
-
-    actualizarProgreso();
-}
-
-function agregarTarea() {
-    let entrada = document.getElementById("nuevaTarea");
-    let nombre = entrada.value.trim();
-
-    if (nombre === "") {
-        document.getElementById("mensajeTarea").textContent =
-            "Escribe una tarea primero.";
-        return;
-    }
-
-    let lista = document.getElementById("listaTareas");
-
-    let nueva = document.createElement("div");
-    nueva.className = "tarea";
-
-    let texto = document.createElement("span");
-    texto.textContent = nombre;
-
-    let botonCompletar = document.createElement("button");
-    botonCompletar.className = "boton-verde";
-    botonCompletar.textContent = "Completar";
-    botonCompletar.onclick = function() {
-        completarTarea(botonCompletar);
-    };
-
-    let botonBorrar = document.createElement("button");
-    botonBorrar.className = "boton-rojo";
-    botonBorrar.textContent = "🗑️ Borrar";
-    botonBorrar.onclick = function() {
-        borrarTarea(botonBorrar);
-    };
-
-    nueva.appendChild(texto);
-    nueva.appendChild(botonCompletar);
-    nueva.appendChild(botonBorrar);
-
-    lista.appendChild(nueva);
-
-    totalTareas++;
-
-    actualizarProgreso();
-
-    entrada.value = "";
-
-    document.getElementById("mensajeTarea").textContent =
-        "Tarea agregada correctamente ✅";
-}
-
-let segundos = 25 * 60;
-let temporizador = null;
-
-function mostrarTiempo() {
-    let minutos = Math.floor(segundos / 60);
-    let segundosRestantes = segundos % 60;
-
-    let textoMinutos =
-        minutos.toString().padStart(2, "0");
-
-    let textoSegundos =
-        segundosRestantes.toString().padStart(2, "0");
-
-    document.getElementById("tiempo").textContent =
-        textoMinutos + ":" + textoSegundos;
-}
-
-function iniciarTemporizador() {
-    if (temporizador !== null) {
-        return;
-    }
-
-    temporizador = setInterval(function() {
-        if (segundos > 0) {
-            segundos--;
-            mostrarTiempo();
-        } else {
-            clearInterval(temporizador);
-            temporizador = null;
-
-            alert("🎉 ¡Terminaste tu sesión de estudio!");
-        }
-    }, 1000);
-}
-
-function pausarTemporizador() {
-    clearInterval(temporizador);
-    temporizador = null;
-}
-
-function reiniciarTemporizador() {
-    clearInterval(temporizador);
-    temporizador = null;
-
-    segundos = 25 * 60;
-
-    mostrarTiempo();
-}
-
-let dineroDisponible = 50;
-
-function registrarGasto() {
-    let entrada =
-        document.getElementById("gasto");
-
-    let gasto =
-        Number(entrada.value);
-
-    if (gasto <= 0 || isNaN(gasto)) {
-        document.getElementById("mensaje").textContent =
-            "Ingresa un gasto válido.";
-        return;
-    }
-
-    if (gasto > dineroDisponible) {
-        document.getElementById("mensaje").textContent =
-            "No tienes suficiente dinero.";
-        return;
-    }
-
-    dineroDisponible -= gasto;
-
-    document.getElementById("dinero").textContent =
-        dineroDisponible.toFixed(2);
-
-    document.getElementById("mensaje").textContent =
-        "Gasto registrado correctamente ✅";
-
-    entrada.value = "";
-}
-
-actualizarProgreso();
-mostrarTiempo();
 </script>
 
 </body>
